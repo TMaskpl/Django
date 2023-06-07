@@ -27,5 +27,6 @@
             "name": "jazzmin_app"
         }
     ],
-    "sqltools.useNodeRuntime": true
+    "sqltools.useNodeRuntime": true,
+    "ansible.python.interpreterPath": "/home/dniemczok/Python/Django/admins_jazzmin/bin/python"
 }

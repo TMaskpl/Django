@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from customer_app.admin import ansible_site
+from customer_app.admin import AnsibleAdmin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-        path('', ansible_site.urls),
+    # path('admin/', admin.site.urls),
+    path('', admin.site.urls),
+        
 ]

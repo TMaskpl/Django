@@ -1,6 +1,38 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
+
+
+class srodowisko_tmaskpl(models.Model):
+    
+    ENV = {
+        (0, 'TST'),
+        (1, 'DEV'),
+        (2, 'PRE'),
+        (3, 'PRO')
+    }
+    
+    REG = {
+        (0, 'Europe'),
+        (1, 'USA'),
+        (2, 'Asia')
+    }
+    
+    customer_name = models.PositiveSmallIntegerField(default=0, choices=ENV)
+    customer_region = models.PositiveSmallIntegerField(default=0, choices=REG)
+    
+    class Meta:
+        verbose_name = 'Środowisko TMaskPL'
+        verbose_name_plural = "Środowisko"
+        
+    def __str__(self):
+        # return self.srodowisko_region()
+        return "{} ({})".format(self.customer_name, self.customer_region)
+    
+    # def srodowisko_region(self):
+    #     return "{} ({})".format(self.customer_name, self.customer_region)
+    
+
 numeric = RegexValidator(r'^[0-9]+', 'Pole można wypełnić tylko cyframi.')
 
 # Create your models here.
@@ -17,6 +49,7 @@ class customer_tmaskpl(models.Model):
     customer_facebook = models.CharField('Facebook', blank=True, null=True, max_length=250)
     customer_linkedin = models.CharField('LinkedIn', blank=True, null=True, max_length=250)
     customer_opis = models.TextField('Opis', blank=True, default="")
+    customer_srodowisko = models.OneToOneField(srodowisko_tmaskpl, on_delete=models.CASCADE, blank=True, null=True)
     customer_data_wprowadzenia = models.DateTimeField('Data utworzenia', auto_now_add=True)
     customer_data_aktualizacji = models.DateTimeField('Data ostatniej aktualizacji', auto_now=True, null=True)
     customer_upload = models.FileField(upload_to ='%Y/%m/%d/', blank=True, null=True)
@@ -27,3 +60,5 @@ class customer_tmaskpl(models.Model):
     
     def __str__(self):
         return self.customer_name
+    
+    
